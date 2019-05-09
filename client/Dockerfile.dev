@@ -1,5 +1,6 @@
 FROM node:alpine
-ENV CI = true
+ENV CI=true
+ENV YARN_GPG=no
 WORKDIR '/app'
 COPY ./package.json .
 RUN npm install
