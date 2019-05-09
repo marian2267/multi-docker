@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install: 
+  - docker build -t marian2267/multi-docker ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -t marian2267/multi-docker npm test -- --coverage
+
+after_success:
+  - docker build -t marian2267/multi-client ./client
+  - docker build -t marian2267/multi-nginx ./nginx
+  - docker build -t marian2267/multi-server ./server
+  - docker build -t marian2267/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | login -u "$DOCKER_ID" --password-stdin
+  - docker push mariannikolov6722/multi-client
+  - docker push mariannikolov6722/multi-nginx
+  - docker push mariannikolov6722/multi-server
+  - docker push mariannikolov6722/multi-worker
+
+
