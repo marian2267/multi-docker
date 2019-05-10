@@ -6,7 +6,7 @@ before_install:
   - docker build -t mariannikolov6722/multi-docker -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run mariannikolov6722/multi-docker npm test -- --coverage
+  - docker run mariannikolov6722/multi-docker npm run test -- --coverage
 
 after_success:
   - docker build -t mariannikolov6722/multi-client ./client
